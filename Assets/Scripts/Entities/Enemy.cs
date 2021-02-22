@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : DamageableObject
+public class Enemy : Entity
 {
     public float speed;
     public float startTimeBtwProjectiles = 1;

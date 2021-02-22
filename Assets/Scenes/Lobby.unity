@@ -580,7 +580,7 @@ GameObject:
   - component: {fileID: 1894803274}
   - component: {fileID: 1894803273}
   m_Layer: 0
-  m_Name: RespawnController
+  m_Name: Respawn Point
   m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -599,8 +599,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startRespawnTime: 3
-  respawnPlayer: {fileID: 3285467017614829013, guid: a3be3435902ff4d4fb623fd2ecb4cc70,
+  mode: 0
+  prefabToSpawn: {fileID: 3285467017614829013, guid: a3be3435902ff4d4fb623fd2ecb4cc70,
     type: 3}
+  targetTag: Player
+  targetObject: {fileID: 0}
+  preserveHealthBar: 1
 --- !u!4 &1894803274
 Transform:
   m_ObjectHideFlags: 0

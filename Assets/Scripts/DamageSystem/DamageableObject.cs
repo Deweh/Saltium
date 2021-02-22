@@ -13,7 +13,7 @@ public class DamageableObject : MonoBehaviour
     /// </summary>
     public float maxHealth = 10f;
     public bool invulnerable = false;
-    public bool isEntity = false;
+    protected bool isEntity = false;
     public GameObject deathEffect;
     public GameObject damageTakenEffect;
     public DeathBehavior deathBehavior;
@@ -66,6 +66,11 @@ public class DamageableObject : MonoBehaviour
         }
     }
 
+    public bool IsEntity()
+    {
+        return isEntity;
+    }
+
     public void SetMaxHealth(float max)
     {
         if (health > max)
@@ -81,8 +86,10 @@ public class DamageableObject : MonoBehaviour
         }
     }
 
-    protected virtual void OnDeath(float damageAmount, ElementType elementType, string dealer)
+    protected virtual void OnDeath(float damageAmount, ElementType elementType, string dealer, GameObject dealerObj = null)
     {
+        GameController.OnDeathCallback(damageAmount, elementType, dealer, gameObject, dealerObj);
+
         if (deathEffect)
         {
             var effect = Instantiate(deathEffect, transform.position, Quaternion.identity);
@@ -108,14 +115,14 @@ public class DamageableObject : MonoBehaviour
         }
     }
 
-    public void Kill()
+    public void Kill(string dealerName = "System", GameObject dealerObj = null)
     {
-        DamageReceived(health, ElementType.Magic, "System");
+        DamageReceived(health, ElementType.Magic, dealerName, true, dealerObj);
     }
 
-    public void Damage(float damage, ElementType elementType, string damageDealer)
+    public void Damage(float damage, ElementType elementType, string damageDealer, GameObject dealerObj = null)
     {
-        DamageReceived(damage, elementType, damageDealer);
+        DamageReceived(damage, elementType, damageDealer, true, dealerObj);
     }
 
     public void Hit(DamageSource damageSource)
@@ -123,7 +130,7 @@ public class DamageableObject : MonoBehaviour
         DamageReceived(damageSource);
     }
 
-    protected virtual void DamageReceived(float amount, ElementType elementType, string dealer, bool sourceActive = true)
+    protected virtual void DamageReceived(float amount, ElementType elementType, string dealer, bool sourceActive = true, GameObject dealerObject = null)
     {
         if (!sourceActive)
         {
@@ -160,14 +167,14 @@ public class DamageableObject : MonoBehaviour
             if (health <= 0f && !dead)
             {
                 dead = true;
-                OnDeath(amount, elementType, dealer);
+                OnDeath(amount, elementType, dealer, dealerObject);
             }
         }
     }
 
     private void DamageReceived(DamageSource damageSource)
     {
-        DamageReceived(damageSource.damageAmount, damageSource.elementType, damageSource.name, damageSource.active);
+        DamageReceived(damageSource.damageAmount, damageSource.elementType, damageSource.name, damageSource.active, damageSource.gameObject);
     }
 
     protected virtual float CalculateDamage(float amount, ElementType elementType)

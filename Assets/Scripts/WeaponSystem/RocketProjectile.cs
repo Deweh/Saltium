@@ -61,7 +61,7 @@ public class RocketProjectile : Projectile
         }
     }
 
-    protected override void OnDeath(float damageAmount, ElementType elementType, string dealer)
+    protected override void OnDeath(float damageAmount, ElementType elementType, string dealer, GameObject dealerObj)
     {
         var colliders = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
         source.active = true;

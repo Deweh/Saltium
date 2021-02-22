@@ -100,12 +100,13 @@ MonoBehaviour:
   health: 10
   maxHealth: 10
   invulnerable: 0
-  isEntity: 1
   deathEffect: {fileID: 3081293512757846897, guid: 81f3f8af0b506a342ad8c569d6a4fdc3,
     type: 3}
   damageTakenEffect: {fileID: 0}
   deathBehavior: 0
   healthBar: {fileID: 0}
+  prefab: {fileID: 3285467017614829013}
+  spawnOrigin: {fileID: 0}
   speed: 5
 --- !u!114 &3285467017614829011
 MonoBehaviour:

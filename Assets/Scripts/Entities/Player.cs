@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : DamageableObject
+public class Player : Entity
 {
     public float speed = 5;
 
@@ -29,18 +29,6 @@ public class Player : DamageableObject
             {
                 weapon.Fire(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             }
-        }
-    }
-
-    protected override void OnDeath(float damageAmount, ElementType elementType, string dealer)
-    {
-        base.OnDeath(damageAmount, elementType, dealer);
-
-        GameObject[] controllers = GameObject.FindGameObjectsWithTag("GameController");
-
-        foreach (GameObject control in controllers)
-        {
-            control.SendMessage("OnPlayerDeath", new PlayerDeathArgs() { damageAmount = damageAmount, elementType = elementType, damageDealer = dealer, player = gameObject }, SendMessageOptions.DontRequireReceiver);
         }
     }
 

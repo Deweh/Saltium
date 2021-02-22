@@ -50,7 +50,7 @@ public class Projectile : DamageableObject
         base.OnTriggerEnter2D(collision);
         var obj = collision.gameObject.GetComponent<DamageableObject>();
 
-        if (!dieOnAnyCollision && obj && !obj.isEntity)
+        if (!dieOnAnyCollision && obj && !obj.IsEntity())
         {
             return;
         }
@@ -63,7 +63,7 @@ public class Projectile : DamageableObject
         base.OnCollisionEnter2D(collision);
         var obj = collision.gameObject.GetComponent<DamageableObject>();
 
-        if (!dieOnAnyCollision && obj && !obj.isEntity)
+        if (!dieOnAnyCollision && obj && !obj.IsEntity())
         {
             return;
         }
