@@ -22,7 +22,7 @@ public class Player : Entity
 
         rb.MovePosition(rb.position + moveVelocity * Time.fixedDeltaTime);
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !PauseMenu.gamePaused)
         {
             ProjectileWeapon weapon = GetComponent<ProjectileWeapon>();
             if (weapon)
