@@ -9,7 +9,6 @@ public class RocketProjectile : Projectile
     public GameObject startTrailEffect;
 
     private float safetyFuse;
-    private CircleCollider2D c;
     private DamageSource source;
     private GameObject trailEffect;
 
@@ -17,9 +16,7 @@ public class RocketProjectile : Projectile
     {
         base.Start();
         safetyFuse = startSafetyFuse;
-
-        c = GetComponent<CircleCollider2D>();
-        c.enabled = false;
+        noImpacts = true;
 
         deathEffectRadius = explosionRadius;
 
@@ -57,7 +54,7 @@ public class RocketProjectile : Projectile
         }
         else
         {
-            c.enabled = true;
+            noImpacts = false;
         }
     }
 

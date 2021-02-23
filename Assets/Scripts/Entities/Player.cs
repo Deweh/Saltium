@@ -6,22 +6,15 @@ public class Player : Entity
 {
     public float speed = 5;
 
-    private Rigidbody2D rb;
     private Vector2 moveVelocity;
 
     protected override void Start()
     {
         base.Start();
-        rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
-        Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        moveVelocity = moveInput.normalized * speed;
-
-        rb.MovePosition(rb.position + moveVelocity * Time.fixedDeltaTime);
-
         if (Input.GetMouseButtonDown(0) && !PauseMenu.gamePaused)
         {
             ProjectileWeapon weapon = GetComponent<ProjectileWeapon>();
@@ -30,6 +23,14 @@ public class Player : Entity
                 weapon.Fire(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             }
         }
+    }
+
+    private void FixedUpdate()
+    {
+        Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        moveVelocity = moveInput.normalized * speed;
+
+        TryMove(moveVelocity);
     }
 
     public struct PlayerDeathArgs

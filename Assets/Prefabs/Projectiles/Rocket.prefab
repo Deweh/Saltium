@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7526931721497166558}
   - component: {fileID: 1587742714609779429}
   m_Layer: 0
-  m_Name: RocketProjectile
+  m_Name: Rocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,7 +100,6 @@ MonoBehaviour:
   health: 2.5
   maxHealth: 2.5
   invulnerable: 0
-  isEntity: 0
   deathEffect: {fileID: 7517539479751559112, guid: bf5848417eaf58542be95e5555381fd6,
     type: 3}
   damageTakenEffect: {fileID: 0}
@@ -138,7 +137,7 @@ Rigidbody2D:
   m_GameObject: {fileID: 7634824767676731983}
   m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 1
+  m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
@@ -159,7 +158,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

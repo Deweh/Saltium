@@ -105,7 +105,6 @@ MonoBehaviour:
   damageTakenEffect: {fileID: 0}
   deathBehavior: 0
   healthBar: {fileID: 0}
-  prefab: {fileID: 3285467017614829013}
   spawnOrigin: {fileID: 0}
   speed: 5
 --- !u!114 &3285467017614829011
@@ -132,7 +131,7 @@ Rigidbody2D:
   m_GameObject: {fileID: 3285467017614829013}
   m_BodyType: 0
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 0.2
   m_LinearDrag: 1

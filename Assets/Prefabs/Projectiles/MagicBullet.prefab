@@ -97,13 +97,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21c481e9e86f22e4eb399ee6203b972c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 1
   maxHealth: 1
   invulnerable: 0
   deathEffect: {fileID: 8171006916878886476, guid: f6187956851979a44b3a8fd2e8cb854d,
     type: 3}
   damageTakenEffect: {fileID: 0}
+  deathBehavior: 0
+  healthBar: {fileID: 0}
   speed: 20
   startLifetime: 2.5
+  dieOnAnyCollision: 1
 --- !u!114 &5441757403441564070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,6 +122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageAmount: 4
   elementType: 0
+  active: 1
 --- !u!50 &6557249430092425722
 Rigidbody2D:
   serializedVersion: 4
@@ -128,7 +133,7 @@ Rigidbody2D:
   m_GameObject: {fileID: 4543711214118317335}
   m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 1
+  m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
@@ -149,7 +154,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

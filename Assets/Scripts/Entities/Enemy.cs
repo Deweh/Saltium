@@ -21,16 +21,13 @@ public class Enemy : Entity
         timeBtwProjectiles = startTimeBtwProjectiles;
     }
 
-    void Update()
+    private void FixedUpdate()
     {
         if (playerPos)
         {
-            transform.position = Vector2.MoveTowards(transform.position, playerPos.position, speed * Time.deltaTime);
+            TryMove((playerPos.position - transform.position).normalized * speed);
         }
-    }
 
-    private void FixedUpdate()
-    {
         timeBtwProjectiles -= Time.fixedDeltaTime;
 
         if (timeBtwProjectiles <= 0f)
@@ -45,11 +42,11 @@ public class Enemy : Entity
         }
     }
 
-    protected override void OnTriggerEnter2D(Collider2D col)
+    protected override void OnCollisionEnter2D(Collision2D col)
     {
-        base.OnTriggerEnter2D(col);
+        base.OnCollisionEnter2D(col);
 
-        if (col.CompareTag("Player"))
+        if (col.gameObject.CompareTag("Player"))
         {
             var obj = col.gameObject.GetComponent<DamageableObject>();
             if (obj)

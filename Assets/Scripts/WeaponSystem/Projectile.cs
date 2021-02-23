@@ -10,6 +10,7 @@ public class Projectile : DamageableObject
     public bool dieOnAnyCollision = true;
 
     private float lifetime;
+    protected bool noImpacts = false;
 
     void Reset()
     {
@@ -45,9 +46,12 @@ public class Projectile : DamageableObject
         }
     }
 
-    protected override void OnTriggerEnter2D(Collider2D collision)
+    protected override void OnCollisionEnter2D(Collision2D collision)
     {
-        base.OnTriggerEnter2D(collision);
+        base.OnCollisionEnter2D(collision);
+
+        if (noImpacts) return;
+
         var obj = collision.gameObject.GetComponent<DamageableObject>();
 
         if (!dieOnAnyCollision && obj && !obj.IsEntity())
@@ -58,9 +62,12 @@ public class Projectile : DamageableObject
         Kill();
     }
 
-    protected override void OnCollisionEnter2D(Collision2D collision)
+    protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        base.OnCollisionEnter2D(collision);
+        base.OnTriggerEnter2D(collision);
+
+        if (noImpacts) return;
+
         var obj = collision.gameObject.GetComponent<DamageableObject>();
 
         if (!dieOnAnyCollision && obj && !obj.IsEntity())
