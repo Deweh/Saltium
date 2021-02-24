@@ -25,7 +25,7 @@ public class Enemy : Entity
     {
         if (playerPos)
         {
-            TryMove((playerPos.position - transform.position).normalized * speed);
+            TryMoveTo(playerPos.position, speed);
         }
 
         timeBtwProjectiles -= Time.fixedDeltaTime;

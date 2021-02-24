@@ -3,10 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
+using TMPro;
 
 public class GameController : MonoBehaviour
 {
+    public TMP_FontAsset globalFont;
+    public GameObject damageNumberPrefab;
+
+    public static GameController instance;
     private static List<DeathCallback> deathCalls = new List<DeathCallback>();
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(instance);
+        }
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
 
     public static bool RegisterDeathCallback(DeathCallback newCall)
     {

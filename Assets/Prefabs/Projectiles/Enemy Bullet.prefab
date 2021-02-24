@@ -99,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 1
   maxHealth: 1
+  showDamageNumbers: 0
   invulnerable: 0
   deathEffect: {fileID: 7321069076914867259, guid: 4a383f229aa927f4d91b35ee5a6da19e,
     type: 3}

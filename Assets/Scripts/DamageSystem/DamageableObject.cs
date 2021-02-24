@@ -1,5 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class DamageableObject : MonoBehaviour
@@ -12,17 +15,19 @@ public class DamageableObject : MonoBehaviour
     /// Maximum health. Do not set programatically, use SetMaxHealth instead.
     /// </summary>
     public float maxHealth = 10f;
+    public bool showDamageNumbers = false;
     public bool invulnerable = false;
     protected bool isEntity = false;
     public GameObject deathEffect;
     public GameObject damageTakenEffect;
     public DeathBehavior deathBehavior;
     public HealthBar healthBar;
+    [SerializeField]
     /// <summary>
     /// Percentage resistances to each element type. If resistance is above 1f, that damage type will
     /// add health instead of subtracting. If resistance is negative, that damage type will be multiplied.
     /// </summary>
-    public Dictionary<ElementType, float> resistances = new Dictionary<ElementType, float>();
+    public DamageResistance[] resistances = new DamageResistance[0];
 
     private bool dead = false;
     private float editorOldMax = 10f;
@@ -139,6 +144,12 @@ public class DamageableObject : MonoBehaviour
 
         float damageAmount = CalculateDamage(amount, elementType);
 
+        if (showDamageNumbers)
+        {
+            var obj = Instantiate(GameController.instance.damageNumberPrefab, transform.position, Quaternion.identity);
+            obj.GetComponent<DamageNumber>().number = damageAmount;
+        }
+
         if (damageAmount > 0f)
         {
             health -= damageAmount;
@@ -181,13 +192,26 @@ public class DamageableObject : MonoBehaviour
     {
         if (invulnerable) return 0f;
 
-        if (resistances.ContainsKey(elementType))
+        if (resistances.Any(x => x.type == elementType))
         {
-            return amount * (1f - resistances[elementType]);
+            return amount * (1f - resistances.Where(x => x.type == elementType).FirstOrDefault().amount);
         }
 
         return amount;
     }
+}
+
+[Serializable]
+public struct DamageResistance
+{
+    /// <summary>
+    /// Resistance amount. 1 = completely resistant, >1 = heals instead of damaging, 0 = no effect, <0 = multiplies damage.
+    /// </summary>
+    public float amount;
+    /// <summary>
+    /// Element type that this resistance applies to.
+    /// </summary>
+    public ElementType type;
 }
 
 public enum DeathBehavior
