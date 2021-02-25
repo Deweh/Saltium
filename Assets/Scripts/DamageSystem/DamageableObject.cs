@@ -17,7 +17,7 @@ public class DamageableObject : MonoBehaviour
     public float maxHealth = 10f;
     public bool showDamageNumbers = false;
     public bool invulnerable = false;
-    protected bool isEntity = false;
+    public bool isEntity = false;
     public GameObject deathEffect;
     public GameObject damageTakenEffect;
     public DeathBehavior deathBehavior;

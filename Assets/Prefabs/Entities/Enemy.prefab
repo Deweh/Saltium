@@ -101,11 +101,13 @@ MonoBehaviour:
   maxHealth: 10
   showDamageNumbers: 1
   invulnerable: 0
+  isEntity: 1
   deathEffect: {fileID: 8576268105690162202, guid: cb7619e5078f54740a16387b0a77029c,
     type: 3}
   damageTakenEffect: {fileID: 0}
   deathBehavior: 0
   healthBar: {fileID: 0}
+  resistances: []
   spawnOrigin: {fileID: 0}
   speed: 0.3
   startTimeBtwProjectiles: 1

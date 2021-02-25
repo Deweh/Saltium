@@ -101,6 +101,7 @@ MonoBehaviour:
   maxHealth: 10
   showDamageNumbers: 1
   invulnerable: 0
+  isEntity: 1
   deathEffect: {fileID: 3081293512757846897, guid: 81f3f8af0b506a342ad8c569d6a4fdc3,
     type: 3}
   damageTakenEffect: {fileID: 0}

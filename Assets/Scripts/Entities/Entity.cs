@@ -8,6 +8,12 @@ public class Entity : DamageableObject
 
     protected Rigidbody2D rb;
 
+    protected override void OnValidate()
+    {
+        base.OnValidate();
+        isEntity = true;
+    }
+
     private void Awake()
     {
         isEntity = true;
