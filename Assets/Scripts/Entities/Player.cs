@@ -8,13 +8,11 @@ public class Player : Entity
 
     private Vector2 moveVelocity;
 
-    protected override void Start()
-    {
-        base.Start();
-    }
-
     void Update()
     {
+        Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        moveVelocity = moveInput.normalized * speed;
+
         if (Input.GetMouseButtonDown(0) && !PauseMenu.gamePaused)
         {
             ProjectileWeapon weapon = GetComponent<ProjectileWeapon>();
@@ -27,9 +25,6 @@ public class Player : Entity
 
     private void FixedUpdate()
     {
-        Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        moveVelocity = moveInput.normalized * speed;
-
         TryMove(moveVelocity);
     }
 

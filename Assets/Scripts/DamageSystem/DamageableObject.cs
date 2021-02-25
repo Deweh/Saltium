@@ -146,8 +146,10 @@ public class DamageableObject : MonoBehaviour
 
         if (showDamageNumbers)
         {
-            var obj = Instantiate(GameController.instance.damageNumberPrefab, transform.position, Quaternion.identity);
-            obj.GetComponent<DamageNumber>().number = damageAmount;
+            var obj = GameController.Instance.SpawnPooledPrefab("DamageNumber", transform.position, Quaternion.identity, false);
+            var dmgNum = obj.GetComponent<DamageNumber>();
+            dmgNum.number = damageAmount;
+            dmgNum.OnSpawned();
         }
 
         if (damageAmount > 0f)

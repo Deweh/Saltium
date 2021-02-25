@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class DamageNumber : MonoBehaviour
+public class DamageNumber : MonoBehaviour, IPooledObject
 {
     public float fadeSpeed = 1f;
     public float moveDistance = 1f;
@@ -13,8 +13,9 @@ public class DamageNumber : MonoBehaviour
     private TextMeshPro text;
     private Vector3 initialPos;
 
-    private void Start()
+    public void OnSpawned()
     {
+        alpha = 1f;
         text = GetComponent<TextMeshPro>();
         text.text = number.ToString();
         initialPos = transform.position + new Vector3(Random.Range(-positionRandomness, positionRandomness), Random.Range(-positionRandomness, positionRandomness));
@@ -26,7 +27,7 @@ public class DamageNumber : MonoBehaviour
 
         if (alpha < 0f)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
             return;
         }
 

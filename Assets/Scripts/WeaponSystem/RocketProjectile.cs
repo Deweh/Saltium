@@ -15,6 +15,7 @@ public class RocketProjectile : Projectile
     protected override void Start()
     {
         base.Start();
+
         safetyFuse = startSafetyFuse;
         noImpacts = true;
 

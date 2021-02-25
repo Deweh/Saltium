@@ -99,17 +99,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 2.5
   maxHealth: 2.5
+  showDamageNumbers: 0
   invulnerable: 0
   deathEffect: {fileID: 7517539479751559112, guid: bf5848417eaf58542be95e5555381fd6,
     type: 3}
   damageTakenEffect: {fileID: 0}
   deathBehavior: 0
   healthBar: {fileID: 0}
+  resistances: []
   speed: 3.5
   startLifetime: 8
   dieOnAnyCollision: 0
   explosionRadius: 1.3
-  startSafetyFuse: 0.4
+  startSafetyFuse: 0.2
   startTrailEffect: {fileID: 2396989492722965892, guid: 93bf2633b56abd1468149062b2b403f7,
     type: 3}
 --- !u!114 &674810272395213203

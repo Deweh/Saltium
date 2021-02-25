@@ -7,22 +7,28 @@ using TMPro;
 
 public class GameController : MonoBehaviour
 {
-    public TMP_FontAsset globalFont;
-    public GameObject damageNumberPrefab;
+    public List<PooledPrefab> pooledPrefabs;
 
-    public static GameController instance;
-    private static List<DeathCallback> deathCalls = new List<DeathCallback>();
+    #region Singleton
+
+    public static GameController Instance;
 
     private void Awake()
     {
-        if (instance != null)
+        if (Instance != null)
         {
-            Destroy(instance);
+            Destroy(Instance);
         }
 
-        instance = this;
+        Instance = this;
         DontDestroyOnLoad(gameObject);
     }
+
+    #endregion
+
+    #region Death Callback Handling
+
+    private static List<DeathCallback> deathCalls = new List<DeathCallback>();
 
     public static bool RegisterDeathCallback(DeathCallback newCall)
     {
@@ -84,4 +90,65 @@ public class GameController : MonoBehaviour
         Tag,
         Object
     }
+
+    #endregion
+
+    #region Prefab Pooling
+
+    private Dictionary<string, Queue<GameObject>> poolDict;
+
+    [Serializable]
+    public struct PooledPrefab
+    {
+        public GameObject prefab;
+        public string tag;
+        public int poolSize;
+    }
+
+    private void Start()
+    {
+        poolDict = new Dictionary<string, Queue<GameObject>>();
+
+        foreach (PooledPrefab pool in pooledPrefabs)
+        {
+            Queue<GameObject> objPool = new Queue<GameObject>();
+
+            for (int i = 0; i < pool.poolSize; i++)
+            {
+                GameObject obj = Instantiate(pool.prefab);
+                obj.SetActive(false);
+                objPool.Enqueue(obj);
+            }
+
+            poolDict.Add(pool.tag, objPool);
+        }
+    }
+
+    public GameObject SpawnPooledPrefab(string tag, Vector3 position, Quaternion rotation, bool initialize = true)
+    {
+        if (!poolDict.ContainsKey(tag))
+        {
+            Debug.LogWarning("Prefab pool " + tag + " does not exist.");
+            return null;
+        }
+
+        GameObject toSpawn = poolDict[tag].Dequeue();
+
+        toSpawn.SetActive(true);
+        toSpawn.transform.position = position;
+        toSpawn.transform.rotation = rotation;
+
+        IPooledObject pooledObj = toSpawn.GetComponent<IPooledObject>();
+
+        if (pooledObj != null && initialize)
+        {
+            pooledObj.OnSpawned();
+        }
+
+        poolDict[tag].Enqueue(toSpawn);
+
+        return toSpawn;
+    }
+
+    #endregion
 }
