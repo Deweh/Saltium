@@ -10,8 +10,7 @@ public class Player : Entity
 
     void Update()
     {
-        Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        moveVelocity = moveInput.normalized * speed;
+        moveVelocity = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized * speed;
 
         if (Input.GetMouseButtonDown(0) && !PauseMenu.gamePaused)
         {
@@ -26,13 +25,5 @@ public class Player : Entity
     private void FixedUpdate()
     {
         TryMove(moveVelocity);
-    }
-
-    public struct PlayerDeathArgs
-    {
-        public float damageAmount;
-        public ElementType elementType;
-        public string damageDealer;
-        public GameObject player;
     }
 }
